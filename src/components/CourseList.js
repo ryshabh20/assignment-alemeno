@@ -1,4 +1,3 @@
-// src/components/CourseList.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses, selectCourses } from "../redux/course/courseSlice";

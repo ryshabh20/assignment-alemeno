@@ -1,4 +1,3 @@
-// src/features/course/courseSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {

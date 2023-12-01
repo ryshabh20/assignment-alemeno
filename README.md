@@ -1,4 +1,8 @@
-[![Watch the video](https://drive.google.com/file/d/1LOUQ6h4wkE0AoY5dDn-SnekJ1tKYM4ER/view?usp=drive_link)
+
+
+
+https://github.com/ryshabh20/assignment-alemeno/assets/60999728/6717dee5-3fee-4fbe-821e-a699808f0260
+
 
 
 # How to run

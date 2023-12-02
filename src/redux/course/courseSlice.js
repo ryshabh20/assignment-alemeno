@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   courses: [],
 };
 
 const courseSlice = createSlice({
-  name: 'course',
+  name: "course",
   initialState,
   reducers: {
     setCourses: (state, action) => {
@@ -13,9 +13,12 @@ const courseSlice = createSlice({
     },
     markCourseCompleted: (state, action) => {
       const { courseId } = action.payload;
-      state.courses = state.courses.map((course) =>
-      course.id === courseId ? { ...course, completed: true } : course
-    );
+      console.log("Marking course as completed:", courseId);
+      const updatedCourses = state.courses.map((course) =>
+        course.id === courseId ? { ...course, completed: true } : course
+      );
+      state.courses = updatedCourses;
+      console.log("Updated state:", state);
     },
   },
 });

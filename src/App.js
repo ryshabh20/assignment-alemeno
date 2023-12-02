@@ -17,13 +17,20 @@ const App = () => {
     const fetchUserData = async () => {
       try {
         const user = await fetchUser();
+
         dispatch(setUser(user));
       } catch (error) {
         console.error("Error in fetching user data:", error);
       }
     };
 
-    fetchUserData();
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+
+    if (storedUserData) {
+      dispatch(setUser(storedUserData));
+    } else {
+      fetchUserData();
+    }
   }, [dispatch]);
 
   return (

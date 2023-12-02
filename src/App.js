@@ -1,11 +1,31 @@
-import React from "react";
+// App.js
+
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/course/authSlice";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import CourseList from "./components/CourseList";
 import CourseDetails from "./components/CourseDetails";
 import StudentDashboard from "./components/StudentDashboard";
+import { fetchUser } from "./api/authApi";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = await fetchUser();
+        dispatch(setUser(user));
+      } catch (error) {
+        console.error("Error in fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div>

@@ -13,10 +13,9 @@ const courseSlice = createSlice({
     },
     markCourseCompleted: (state, action) => {
       const { courseId } = action.payload;
-      const course = state.courses.find((c) => c.id === courseId);
-      if (course) {
-        course.completed = true;
-      }
+      state.courses = state.courses.map((course) =>
+      course.id === courseId ? { ...course, completed: true } : course
+    );
     },
   },
 });

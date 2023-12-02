@@ -1,23 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCourses, markCourseCompleted } from "../redux/course/courseSlice";
+import { selectUser } from "../redux/course/authSlice";
+import { selectCourses } from "../redux/course/courseSlice";
+import { markCourseAsCompleted } from "../redux/course/studentSlice";
 
 const StudentDashboard = () => {
-  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const courses = useSelector(selectCourses);
+  const dispatch = useDispatch();
+  console.log("User:", user);
+  console.log("All Courses:", courses);
 
-  const handleMarkAsCompleted = (courseId) => {
-    dispatch(markCourseCompleted({ courseId }));
+  const handleMarkAsCompletedClick = (courseId) => {
+    console.log("Mark as completed clicked for course:", courseId);
+    dispatch(markCourseAsCompleted({ courseId }));
   };
+  const enrolledCourses = courses.filter((course) =>
+    user?.coursesEnrolled?.includes(course.id)
+  );
+
+
 
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">Student Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-4">{user.name} Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {courses.map((course) => (
+        {enrolledCourses.map((course) => (
           <div
-            key={course.id}
+         
             className="bg-white p-4 shadow-md rounded-md h-full flex flex-col justify-between"
           >
             <div>
@@ -49,7 +60,7 @@ const StudentDashboard = () => {
                 className={`bg-green-500 text-white px-4 py-2 rounded-md ${
                   course.completed && "cursor-not-allowed opacity-50"
                 } hover:bg-green-600 transition`}
-                onClick={() => handleMarkAsCompleted(course.id)}
+                onClick={() => handleMarkAsCompletedClick(course.id)}
                 disabled={course.completed}
               >
                 {course.completed ? "Completed" : "Mark as Completed"}

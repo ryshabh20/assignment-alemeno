@@ -11,15 +11,7 @@ const courseSlice = createSlice({
     setCourses: (state, action) => {
       state.courses = action.payload;
     },
-    markCourseCompleted: (state, action) => {
-      const { courseId } = action.payload;
-      console.log("Marking course as completed:", courseId);
-      const updatedCourses = state.courses.map((course) =>
-        course.id === courseId ? { ...course, completed: true } : course
-      );
-      
-      state.courses = updatedCourses;
-    },
+
   },
 });
 

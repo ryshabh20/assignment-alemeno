@@ -2,8 +2,8 @@ import React, { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../redux/course/authSlice";
-import { selectCourses } from "../redux/course/courseSlice";
-import { markCourseAsCompleted } from "../redux/course/studentSlice";
+import { setCourses,selectCourses } from "../redux/course/courseSlice";
+
 
 const StudentDashboard = () => {
   const user = useSelector(selectUser);
@@ -23,14 +23,18 @@ useEffect(() => {
 
     localStorage.setItem('enrolledCoursesData', JSON.stringify(enrolled));
   }
-}, [user, courses]);
+}, [dispatch,user, courses]);
 
 
+const handleMarkAsCompletedClick = (courseId) => {
+  const updatedCourses = enrolledCourses.map((course) =>
+    course.id === courseId ? { ...course, completed: !course.completed } : course
+  );
 
-  const handleMarkAsCompletedClick = (courseId) => {
-    dispatch(markCourseAsCompleted({ courseId }));
-  
-  };
+  setEnrolledCourses(updatedCourses);
+
+  localStorage.setItem('enrolledCoursesData', JSON.stringify(updatedCourses));
+};
 
   
 
@@ -43,6 +47,9 @@ useEffect(() => {
           className="bg-white p-4 shadow-md rounded-md h-full flex flex-col justify-between"
           key={course.id}
           >
+          
+            
+            
             <div>
               <img
                 src={course.thumbnail}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../redux/course/authSlice";
@@ -9,27 +9,39 @@ const StudentDashboard = () => {
   const user = useSelector(selectUser);
   const courses = useSelector(selectCourses);
   const dispatch = useDispatch();
-  console.log("User:", user);
-  console.log("All Courses:", courses);
+const [enrolledCourses,setEnrolledCourses] = useState([])
+useEffect(() => {
+  const storedEnrolledCoursesData = JSON.parse(localStorage.getItem('enrolledCoursesData'));
+
+  if (storedEnrolledCoursesData) {
+    setEnrolledCourses(storedEnrolledCoursesData);
+  } else {
+    const enrolled = courses.filter((course) =>
+      user.coursesEnrolled.includes(course.id)
+    );
+    setEnrolledCourses(enrolled);
+
+    localStorage.setItem('enrolledCoursesData', JSON.stringify(enrolled));
+  }
+}, [user, courses]);
+
+
 
   const handleMarkAsCompletedClick = (courseId) => {
-    console.log("Mark as completed clicked for course:", courseId);
     dispatch(markCourseAsCompleted({ courseId }));
+  
   };
-  const enrolledCourses = courses.filter((course) =>
-    user?.coursesEnrolled?.includes(course.id)
-  );
 
-
+  
 
   return (
     <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">{user.name} Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-4">dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {enrolledCourses.map((course) => (
           <div
-         
-            className="bg-white p-4 shadow-md rounded-md h-full flex flex-col justify-between"
+          className="bg-white p-4 shadow-md rounded-md h-full flex flex-col justify-between"
+          key={course.id}
           >
             <div>
               <img
@@ -41,7 +53,6 @@ const StudentDashboard = () => {
               <p className="text-gray-600 mb-2">
                 Instructor: {course.instructor}
               </p>
-
               <div className="mb-2">
                 <strong>Progress:</strong>
                 <div className="bg-gray-300 h-2 rounded-md mt-1">

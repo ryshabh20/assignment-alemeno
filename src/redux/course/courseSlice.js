@@ -17,8 +17,8 @@ const courseSlice = createSlice({
       const updatedCourses = state.courses.map((course) =>
         course.id === courseId ? { ...course, completed: true } : course
       );
+      
       state.courses = updatedCourses;
-      console.log("Updated state:", state);
     },
   },
 });

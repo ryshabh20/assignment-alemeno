@@ -2,7 +2,7 @@ import React, { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../redux/course/authSlice";
-import { setCourses,selectCourses } from "../redux/course/courseSlice";
+import { selectCourses } from "../redux/course/courseSlice";
 
 
 const StudentDashboard = () => {

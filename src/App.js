@@ -20,9 +20,6 @@ const App = () => {
         const user = await fetchUser();
         dispatch(setUser(user));
         localStorage.setItem('userData', JSON.stringify(user));
-        const courses = await api.getCourses();
-        dispatch(setCourses(courses));
-        localStorage.setItem('coursesData', JSON.stringify(courses));
       } catch (error) {
         console.error("Error in fetching user data:", error);
       }

@@ -8,7 +8,6 @@ import Navbar from "./components/NavBar";
 import CourseList from "./components/CourseList";
 import CourseDetails from "./components/CourseDetails";
 import StudentDashboard from "./components/StudentDashboard";
-import { setCourses } from './redux/course/courseSlice'
 import { fetchUser } from "./api/authApi";
 
 const App = () => {
